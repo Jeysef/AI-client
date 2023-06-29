@@ -1,17 +1,8 @@
-import React, { useState } from "react";
-import Form from "./Form";
-import getDayDescription, { LoadingState } from "./DayDescription";
+import React from "react";
+import FormPlace from "./FormPlaceDescription";
+import FormDay from "./FormDayDescription";
 
 const App: React.FC = () => {
-    const [loading, setLoading] = useState(LoadingState.WAITING);
-    const handleSubmit = async (itineraryId: string, day: string): Promise<string> => {
-        const handleSetLoading = (value: LoadingState) => {
-            setLoading(value);
-        };
-
-        return await getDayDescription({ itineraryId, day, setLoading: handleSetLoading });
-    };
-
     return (
         <div
             className="app"
@@ -20,10 +11,20 @@ const App: React.FC = () => {
                 height: "100vh",
                 display: "grid",
                 placeContent: "center",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "4rem",
+                padding: "4rem",
+                boxSizing: "border-box",
             }}
         >
-            <h1>Day description generator</h1>
-            <Form onSubmit={handleSubmit} loading={loading} />
+            <div>
+                <h1>Place description generator</h1>
+                <FormPlace />
+            </div>
+            <div>
+                <h1>Day description generator</h1>
+                <FormDay />
+            </div>
         </div>
     );
 };

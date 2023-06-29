@@ -1,23 +1,25 @@
 import React, { useState } from "react";
-import { LoadingState } from "./DayDescription";
+import getPlaceDescription, { LoadingState } from "./PlaceDescription";
 
-interface FormProps {
-    onSubmit: (itineraryId: string, day: string) => Promise<string>;
-    loading: LoadingState;
-}
-
-const Form: React.FC<FormProps> = ({ onSubmit, loading }) => {
+const Form: React.FC = () => {
     const [itineraryId, setItineraryId] = useState("");
+    const [place, setPlace] = useState("");
     const [day, setDay] = useState("");
     const [result, setResult] = useState("");
+    const [loading, setLoading] = useState(LoadingState.WAITING);
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const resultString = await onSubmit(itineraryId, day);
+        setLoading(LoadingState.LOADING);
+        const resultString = await getPlaceDescription({ itineraryId, place, day, setLoading: (loading) => setLoading(loading) });
         setResult(resultString);
         setItineraryId("");
+        setPlace("");
         setDay("");
     };
+
+    
 
     const textArea = () => {
         switch (loading) {
@@ -39,8 +41,11 @@ const Form: React.FC<FormProps> = ({ onSubmit, loading }) => {
                 <label htmlFor="itineraryId">Itinerary ID:</label>
                 <input type="text" id="itineraryId" value={itineraryId} onChange={(e) => setItineraryId(e.target.value)} />
 
-                <label htmlFor="day">Day: (0 - day 1)</label>
-                <input type="text" id="day" value={day} onChange={(e) => setDay(e.target.value)} />
+                <label htmlFor="place">PlaceId:</label>
+                <input type="text" id="place" value={place} onChange={(e) => setPlace(e.target.value)} />
+
+                <label htmlFor="day">Day: (optional)</label>
+                <input type="text" id="day" value={day} onChange={(e) => setPlace(e.target.value)} />
 
                 <button type="submit">Submit</button>
                 <hr style={{ width: "100%" }} />
