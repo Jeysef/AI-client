@@ -15,7 +15,7 @@ export default async function DayDescription(props: DayDescriptionProps) {
     const { itineraryId, day, setLoading } = props;
 
     setLoading(LoadingState.LOADING);
-    const url = `${import.meta.env.VITE_GET_DAY_DESCRIPTION_URL}?code=${import.meta.env.VITE_GET_DAY_DESCRIPTION_KEY}&itineraryId=${itineraryId}&itineraryDay=${day}`;
+    const url = `${import.meta.env.VITE_GET_DESCRIPTION_URL}?code=${import.meta.env.VITE_GET_DESCRIPTION_KEY}&type=day&itineraryId=${itineraryId}&itineraryDay=${day}`;
 
     try {
         const response = await fetch(url);

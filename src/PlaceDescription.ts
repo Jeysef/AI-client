@@ -16,7 +16,7 @@ export default async function PlaceDescription(props: PlaceDescriptionProps) {
     const { itineraryId, place, day, setLoading } = props;
 
     setLoading(LoadingState.LOADING);
-    const url = `${import.meta.env.VITE_GET_PLACE_DESCRIPTION_URL}?code=${import.meta.env.VITE_GET_PLACE_DESCRIPTION_KEY}&itineraryId=${itineraryId}&placeId=${place}${day && `&itineraryDay=${day}`}`;
+    const url = `${import.meta.env.VITE_GET_DESCRIPTION_URL}?code=${import.meta.env.VITE_GET_DESCRIPTION_KEY}&type=place&itineraryId=${itineraryId}&placeId=${place}${day && `&itineraryDay=${day}`}`;
 
     try {
         const response = await fetch(url);
