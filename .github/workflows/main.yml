@@ -1,16 +1,16 @@
-name: Build and Deploy
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main # Change this to your main branch
+      - main # Change this to your main branch name
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Set up Node.js
@@ -18,15 +18,15 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Build the app
+      - name: Build Application
         run: npm run build
 
-      - name: Deploy to gh-pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          publish_branch: gh-pages
+          enable_jekyll: false
